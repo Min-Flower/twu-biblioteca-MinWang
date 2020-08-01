@@ -41,29 +41,27 @@ public class Biblioteca {
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 
-    public String checkService() {
-        Scanner scanner = new Scanner(System.in);
-        if (checkOutBook(scanner.nextLine())) {
-            return "Thank you! Enjoy the book";
-        }
-        return "sorry";
-    }
+//    public String checkService() {
+//        Scanner scanner = new Scanner(System.in);
+//        if (checkOutBook(scanner.nextLine())) {
+//            return "Thank you! Enjoy the book";
+//        }
+//        return "Sorry, that book is not available";
+//    }
 
-    public boolean checkOutBook(String book) {
+    public String checkOutBook(String book) {
         boolean ifAvailable = librarian.checkOutBook(bookList, book);
         if (ifAvailable) {
             this.bookList = librarian.removeTheCheckOutBook(bookList, book);
-            return true;
+            return "Thank you! Enjoy the book";
         }
-        return false;
+        return "Sorry, that book is not available";
     }
 
     public String chooseService(String choice) throws InvalidOptionException {
         switch (choice) {
             case "1":
                 return displayBooks();
-            case "2":
-                return checkService();
             case "0":
                 return null;
             default:

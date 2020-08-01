@@ -27,7 +27,7 @@ public class BibliotecaApp {
                     return false;
                 case "2":
                     System.out.println("Please enter the book name you want:");
-                    System.out.println(biblioteca.chooseService(choice));
+                    System.out.println(biblioteca.checkOutBook(new Scanner(System.in).nextLine()));
                     return true;
                 default:
                     System.out.println(biblioteca.chooseService(choice));

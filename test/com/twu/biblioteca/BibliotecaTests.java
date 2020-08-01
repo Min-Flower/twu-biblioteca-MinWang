@@ -76,4 +76,9 @@ public class BibliotecaTests {
         assertFalse(biblioteca.getBookList().stream()
             .map(Book::getBookName).anyMatch(book -> book.equals("The Read and Black")));
     }
+
+    @Test
+    public void afterCheckedOutMessageShouldBeSent() {
+        assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Thank you! Enjoy the book"));
+    }
 }
