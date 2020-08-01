@@ -32,12 +32,14 @@ public class Biblioteca {
     }
 
     public String showMenu() {
-        return "====MENU====\n1. List of books\nChoose the service you want:";
+        return "====MENU====\n1. List of books\n0. Quit\nChoose the service you want:";
     }
 
     public String chooseService(String choice) throws InvalidOptionException {
         if (choice.equals("1")) {
             return displayBooks();
+        } else if (choice.equals("0")){
+            return null;
         } else {
             throw new InvalidOptionException("Please select a valid option!");
         }

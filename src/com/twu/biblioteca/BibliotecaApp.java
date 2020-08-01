@@ -18,12 +18,14 @@ public class BibliotecaApp {
             System.out.println(biblioteca.showMenu());
             choice = scanner.nextLine();
         }
-        System.out.println(biblioteca.chooseService(choice));
     }
 
     private static boolean isTheOptionInvalid(Biblioteca biblioteca, String choice) {
         try {
-            biblioteca.chooseService(choice);
+            if(biblioteca.chooseService(choice) != null) {
+                System.out.println(biblioteca.chooseService(choice));
+                return true;
+            }
         } catch (InvalidOptionException e) {
             System.out.println(e.getMessage());
             return true;

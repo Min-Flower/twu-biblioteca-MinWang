@@ -9,6 +9,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertThat;
 
 public class BibliotecaTests {
@@ -33,7 +34,7 @@ public class BibliotecaTests {
 
     @Test
     public void afterWelcomeShouldReturnMenu() {
-        assertThat(biblioteca.showMenu(), is("====MENU====\n1. List of books\nChoose the service you want:"));
+        assertThat(biblioteca.showMenu(), is("====MENU====\n1. List of books\n0. Quit\nChoose the service you want:"));
     }
 
     @Test
@@ -54,5 +55,10 @@ public class BibliotecaTests {
         exceptionRule.expect(InvalidOptionException.class);
         exceptionRule.expectMessage("Please select a valid option!");
         biblioteca.chooseService("12");
+    }
+
+    @Test
+    public void chooseQuitOptionShouldExitBiblioteca() {
+        assertNull(biblioteca.chooseService("0"));
     }
 }
