@@ -4,6 +4,7 @@ import com.twu.biblioteca.exceptions.InvalidOptionException;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class Biblioteca {
 
@@ -22,6 +23,12 @@ public class Biblioteca {
 
     public List<Book> getBookList() {
         return this.bookList;
+    }
+
+    public void removeBook(Book chosenBook) {
+        this.bookList = this.getBookList().stream()
+            .filter(book -> !book.getBookName().equals(chosenBook.getBookName()))
+            .collect(Collectors.toList());
     }
 
     public String welcome() {

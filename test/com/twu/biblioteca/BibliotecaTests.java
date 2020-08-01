@@ -13,15 +13,18 @@ import static org.junit.Assert.*;
 public class BibliotecaTests {
 
     private Biblioteca biblioteca;
+    private Librarian librarian;
 
     @Before
     public void setUp() {
         this.biblioteca = new Biblioteca();
+        this.librarian = new Librarian();
     }
 
     @After
     public void tearDown() {
         this.biblioteca = null;
+        this.librarian = null;
     }
 
     @Test
@@ -62,8 +65,14 @@ public class BibliotecaTests {
 
     @Test
     public void checkOutABookShouldReturnIfAvailable() {
-        Librarian librarian = new Librarian();
         assertTrue(librarian.checkOutBook(new Book("The Red and the Black")));
         assertFalse(librarian.checkOutBook(new Book("Million Pound")));
+    }
+
+    @Test
+    public void bookBeCheckedShouldNotAppearInBookList() {
+        Book chosenBook = new Book("The Red and the Black");
+        librarian.checkOutBook(chosenBook);
+        assertFalse(biblioteca.getBookList().contains(chosenBook));
     }
 }
