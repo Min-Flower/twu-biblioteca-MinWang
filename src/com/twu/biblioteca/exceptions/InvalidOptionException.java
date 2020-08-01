@@ -1,4 +1,11 @@
 package com.twu.biblioteca.exceptions;
 
-public class InvalidOptionException {
+public class InvalidOptionException extends RuntimeException {
+
+    public InvalidOptionException() {
+    }
+
+    public InvalidOptionException(String message) {
+        super(message);
+    }
 }
