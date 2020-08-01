@@ -2,9 +2,6 @@ package com.twu.biblioteca.entity;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
-import java.util.stream.Stream;
 
 public class Biblioteca {
 
@@ -29,5 +26,13 @@ public class Biblioteca {
             this.bookList.stream().map(book ->
             String.format("%25s %20s %20d", book.getBookName(), book.getAuthor(), book.getYearOfPublication()))
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
+    }
+
+    public String showMenu() {
+        return "====MENU====\n1. List of books\nChoose the service you want:";
+    }
+
+    public String chooseService(String choice) {
+        return choice.equals("1") ? displayBooks() : "";
     }
 }
