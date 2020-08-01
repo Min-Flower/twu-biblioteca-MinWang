@@ -1,16 +1,14 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Biblioteca;
+import com.twu.biblioteca.entity.Book;
+import com.twu.biblioteca.entity.Librarian;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
-import org.junit.After;
-import org.junit.Before;
-import org.junit.Rule;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.rules.ExpectedException;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertNull;
-import static org.junit.Assert.assertThat;
+import static org.junit.Assert.*;
 
 public class BibliotecaTests {
 
@@ -60,5 +58,12 @@ public class BibliotecaTests {
     @Test
     public void chooseQuitOptionShouldExitBiblioteca() {
         assertNull(biblioteca.chooseService("0"));
+    }
+
+    @Test
+    public void checkOutABookShouldReturnIfAvailable() {
+        Librarian librarian = new Librarian();
+        assertTrue(librarian.checkOutBook(new Book("The Red and the Black")));
+        assertFalse(librarian.checkOutBook(new Book("Million Pound")));
     }
 }
