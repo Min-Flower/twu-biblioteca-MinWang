@@ -1,6 +1,5 @@
 package com.twu.biblioteca;
 
-
 import com.twu.biblioteca.entity.Biblioteca;
 import org.junit.Test;
 
@@ -14,5 +13,13 @@ public class BibliotecaTests {
         Biblioteca biblioteca = new Biblioteca();
         String WELCOME_MASSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
         assertThat(biblioteca.welcome(), is(WELCOME_MASSAGE));
+    }
+
+    @Test
+    public void afterWelcomeShouldReturnBookList() {
+        Biblioteca biblioteca = new Biblioteca();
+        String bookList = biblioteca.displayBooks();
+        String existBookList = "1. Pride and Prejudice\n2. The Red and the Black\n3. War and Peace\n4. David Copperfield";
+        assertThat(bookList, is(existBookList));
     }
 }
