@@ -17,16 +17,17 @@ public class Biblioteca {
     }
 
     private void setBookList() {
-        String[] existBooks = {"Pride and Prejudice", "The Red and the Black", "War and Peace", "David Copperfield"};
-        this.bookList = Stream.of(existBooks)
-            .map(Book::new)
-            .collect(Collectors.toList());
+        bookList.add(new Book("Pride and Prejudice", "Jane Austen", 1813));
+        bookList.add(new Book("The Red and the Black", "Stendhal", 1830));
+        bookList.add(new Book("War and Peace", "Tolstoy", 1869));
+        bookList.add(new Book("David Copperfield", "Charles Dickens", 1849));
     }
 
     public String displayBooks() {
         setBookList();
-        return IntStream.range(0, bookList.size())
-            .mapToObj(index -> index + 1 + ". " + bookList.get(index).getBookName())
+        return String.format("%25s %20s %20s \n", "Book Name", "Author", "Published Year") +
+            this.bookList.stream().map(book ->
+            String.format("%25s %20s %20d", book.getBookName(), book.getAuthor(), book.getYearOfPublication()))
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 }

@@ -1,7 +1,10 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Biblioteca;
+import com.twu.biblioteca.entity.Book;
 import org.junit.Test;
+
+import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
@@ -19,7 +22,11 @@ public class BibliotecaTests {
     public void afterWelcomeShouldReturnBookList() {
         Biblioteca biblioteca = new Biblioteca();
         String bookList = biblioteca.displayBooks();
-        String existBookList = "1. Pride and Prejudice\n2. The Red and the Black\n3. War and Peace\n4. David Copperfield";
+        String existBookList = String.format("%25s %20s %20s \n", "Book Name", "Author", "Published Year")
+            + String.format("%25s %20s %20d","Pride and Prejudice", "Jane Austen", 1813) + "\n"
+            + String.format("%25s %20s %20d", "The Red and the Black", "Stendhal", 1830) + "\n"
+            + String.format("%25s %20s %20d", "War and Peace", "Tolstoy", 1869) + "\n"
+            + String.format("%25s %20s %20d", "David Copperfield", "Charles Dickens", 1849);
         assertThat(bookList, is(existBookList));
     }
 }

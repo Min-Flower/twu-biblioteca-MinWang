@@ -7,6 +7,7 @@ public class BibliotecaApp {
     public static void main(String[] args) {
         Biblioteca biblioteca = new Biblioteca();
         System.out.println(biblioteca.welcome());
+        System.out.println("-------------------------------------------------");
         System.out.println(biblioteca.displayBooks());
     }
 }
