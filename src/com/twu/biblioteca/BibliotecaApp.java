@@ -22,14 +22,20 @@ public class BibliotecaApp {
 
     private static boolean isTheCustomerWannaMoveOn(Biblioteca biblioteca, String choice) {
         try {
-            if(biblioteca.chooseService(choice) != null) {
-                System.out.println(biblioteca.chooseService(choice));
-                return true;
+            switch (choice) {
+                case "0":
+                    return false;
+                case "2":
+                    System.out.println("Please enter the book name you want:");
+                    System.out.println(biblioteca.chooseService(choice));
+                    return true;
+                default:
+                    System.out.println(biblioteca.chooseService(choice));
+                    return true;
             }
         } catch (InvalidOptionException e) {
             System.out.println(e.getMessage());
             return true;
         }
-        return false;
     }
 }

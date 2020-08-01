@@ -1,19 +1,19 @@
 package com.twu.biblioteca.entity;
 
-public class Librarian {
-    private Biblioteca biblioteca = new Biblioteca();
+import java.util.List;
+import java.util.stream.Collectors;
 
-    public boolean checkOutBook(Book chosenBook) {
-        boolean ifAvailable = biblioteca.getBookList().stream()
+public class Librarian {
+
+    public boolean checkOutBook(List<Book>bookList, String chosenBook) {
+        return bookList.stream()
             .map(Book::getBookName)
-            .anyMatch(book -> book.equals(chosenBook.getBookName()));
-        if (ifAvailable) {
-            removeTheCheckOutBook(chosenBook);
-        }
-        return ifAvailable;
+            .anyMatch(book -> book.equals(chosenBook));
     }
 
-    private void removeTheCheckOutBook(Book chosenBook) {
-        biblioteca.removeBook(chosenBook);
+    public List<Book> removeTheCheckOutBook(List<Book> bookList, String chosenBook) {
+        return bookList.stream()
+            .filter(book -> !book.getBookName().equals(chosenBook))
+            .collect(Collectors.toList());
     }
 }

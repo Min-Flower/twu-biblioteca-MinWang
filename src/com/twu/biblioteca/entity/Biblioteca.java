@@ -4,11 +4,12 @@ import com.twu.biblioteca.exceptions.InvalidOptionException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
+import java.util.Scanner;
 
 public class Biblioteca {
 
     private List<Book> bookList = initBookList();
+    private Librarian librarian = new Librarian();
 
     public Biblioteca() {}
 
@@ -21,14 +22,12 @@ public class Biblioteca {
         return bookList;
     }
 
-    public List<Book> getBookList() {
-        return this.bookList;
+    public String showMenu() {
+        return "====MENU====\n1. List of books\n2. Check out book\n0. Quit\nChoose the service you want:";
     }
 
-    public void removeBook(Book chosenBook) {
-        this.bookList = this.getBookList().stream()
-            .filter(book -> !book.getBookName().equals(chosenBook.getBookName()))
-            .collect(Collectors.toList());
+    public List<Book> getBookList() {
+        return this.bookList;
     }
 
     public String welcome() {
@@ -42,17 +41,33 @@ public class Biblioteca {
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 
-    public String showMenu() {
-        return "====MENU====\n1. List of books\n0. Quit\nChoose the service you want:";
+    public String checkService() {
+        Scanner scanner = new Scanner(System.in);
+        if (checkOutBook(scanner.nextLine())) {
+            return "Thank you! Enjoy the book";
+        }
+        return "sorry";
+    }
+
+    public boolean checkOutBook(String book) {
+        boolean ifAvailable = librarian.checkOutBook(bookList, book);
+        if (ifAvailable) {
+            this.bookList = librarian.removeTheCheckOutBook(bookList, book);
+            return true;
+        }
+        return false;
     }
 
     public String chooseService(String choice) throws InvalidOptionException {
-        if (choice.equals("1")) {
-            return displayBooks();
-        } else if (choice.equals("0")){
-            return null;
-        } else {
-            throw new InvalidOptionException("Please select a valid option!");
+        switch (choice) {
+            case "1":
+                return displayBooks();
+            case "2":
+                return checkService();
+            case "0":
+                return null;
+            default:
+                throw new InvalidOptionException("Please select a valid option!");
         }
     }
 }

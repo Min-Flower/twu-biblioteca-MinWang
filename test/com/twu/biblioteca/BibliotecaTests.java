@@ -35,7 +35,8 @@ public class BibliotecaTests {
 
     @Test
     public void afterWelcomeShouldReturnMenu() {
-        assertThat(biblioteca.showMenu(), is("====MENU====\n1. List of books\n0. Quit\nChoose the service you want:"));
+        assertThat(biblioteca.showMenu(),
+            is("====MENU====\n1. List of books\n2. Check out book\n0. Quit\nChoose the service you want:"));
     }
 
     @Test
@@ -65,14 +66,14 @@ public class BibliotecaTests {
 
     @Test
     public void checkOutABookShouldReturnIfAvailable() {
-        assertTrue(librarian.checkOutBook(new Book("The Red and the Black")));
-        assertFalse(librarian.checkOutBook(new Book("Million Pound")));
+        assertTrue(librarian.checkOutBook(biblioteca.getBookList(), "The Red and the Black"));
+        assertFalse(librarian.checkOutBook(biblioteca.getBookList(), "Million Pound"));
     }
 
     @Test
     public void bookBeCheckedShouldNotAppearInBookList() {
-        Book chosenBook = new Book("The Red and the Black");
-        librarian.checkOutBook(chosenBook);
-        assertFalse(biblioteca.getBookList().contains(chosenBook));
+        biblioteca.checkOutBook("The Red and Black");
+        assertFalse(biblioteca.getBookList().stream()
+            .map(Book::getBookName).anyMatch(book -> book.equals("The Read and Black")));
     }
 }
