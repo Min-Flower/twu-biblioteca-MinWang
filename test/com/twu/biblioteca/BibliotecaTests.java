@@ -80,5 +80,6 @@ public class BibliotecaTests {
     @Test
     public void afterCheckedOutMessageShouldBeSent() {
         assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Thank you! Enjoy the book"));
+        assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Sorry, that book is not available"));
     }
 }
