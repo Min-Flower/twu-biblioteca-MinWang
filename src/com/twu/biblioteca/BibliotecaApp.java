@@ -14,13 +14,13 @@ public class BibliotecaApp {
         System.out.println(biblioteca.welcome());
         System.out.println(biblioteca.showMenu());
         String choice = scanner.nextLine();
-        while (isTheOptionInvalid(biblioteca, choice)) {
+        while (isTheCustomerWannaMoveOn(biblioteca, choice)) {
             System.out.println(biblioteca.showMenu());
             choice = scanner.nextLine();
         }
     }
 
-    private static boolean isTheOptionInvalid(Biblioteca biblioteca, String choice) {
+    private static boolean isTheCustomerWannaMoveOn(Biblioteca biblioteca, String choice) {
         try {
             if(biblioteca.chooseService(choice) != null) {
                 System.out.println(biblioteca.chooseService(choice));
