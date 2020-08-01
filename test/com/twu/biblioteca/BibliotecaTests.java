@@ -6,8 +6,6 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
-import javax.activity.InvalidActivityException;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
@@ -27,7 +25,7 @@ public class BibliotecaTests {
     }
 
     @Test
-    public void chooseDisplayBooksShouldReturnBookList() throws InvalidActivityException {
+    public void chooseDisplayBooksShouldReturnBookList() {
         Biblioteca biblioteca = new Biblioteca();
         String existBookList = String.format("%25s %20s %20s \n", "Book Name", "Author", "Published Year")
             + String.format("%25s %20s %20d","Pride and Prejudice", "Jane Austen", 1813) + "\n"
