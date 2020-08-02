@@ -41,7 +41,7 @@ public class Biblioteca {
     }
 
     public String checkOutBook(String book) {
-        boolean ifAvailable = librarian.checkOutBook(bookList, book);
+        boolean ifAvailable = librarian.checkBookState(bookList, book);
         if (ifAvailable) {
             this.bookList = librarian.removeTheCheckOutBook(bookList, book);
             return "Thank you! Enjoy the book";

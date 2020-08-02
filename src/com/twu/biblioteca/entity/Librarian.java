@@ -5,7 +5,7 @@ import java.util.stream.Collectors;
 
 public class Librarian {
 
-    public boolean checkOutBook(List<Book>bookList, String chosenBook) {
+    public boolean checkBookState(List<Book>bookList, String chosenBook) {
         return bookList.stream()
             .map(Book::getBookName)
             .anyMatch(book -> book.equals(chosenBook));

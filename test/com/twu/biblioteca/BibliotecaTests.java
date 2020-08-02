@@ -1,7 +1,6 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Biblioteca;
-import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Librarian;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import org.junit.*;
@@ -66,14 +65,14 @@ public class BibliotecaTests {
 
     @Test
     public void checkOutABookShouldReturnIfAvailable() {
-        assertTrue(librarian.checkOutBook(biblioteca.getBookList(), "The Red and the Black"));
-        assertFalse(librarian.checkOutBook(biblioteca.getBookList(), "Million Pound"));
+        assertTrue(librarian.checkBookState(biblioteca.getBookList(), "The Red and the Black"));
+        assertFalse(librarian.checkBookState(biblioteca.getBookList(), "Million Pound"));
     }
 
     @Test
     public void bookBeCheckedShouldNotAppearInBookList() {
         biblioteca.checkOutBook("The Red and the Black");
-        assertFalse(librarian.checkOutBook(biblioteca.getBookList(), "The Red and the Black"));
+        assertFalse(librarian.checkBookState(biblioteca.getBookList(), "The Red and the Black"));
     }
 
     @Test
