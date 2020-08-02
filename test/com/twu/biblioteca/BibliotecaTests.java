@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.entity.Librarian;
+import com.twu.biblioteca.exceptions.InvalidBookException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BibliotecaService;
 import org.junit.*;
@@ -76,10 +77,17 @@ public class BibliotecaTests {
     }
 
     @Test
-    public void afterCheckedOutMessageShouldBeSent() {
+    public void afterCheckedOutSuccessfulMessageShouldBeSent() {
         assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Thank you! Enjoy the book."));
-        assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Sorry, that book is not available."));
     }
+
+    @Test
+    public void failToCheckOutInvalidExceptionShouldBeThrown() {
+        exceptionRule.expect(InvalidBookException.class);
+        exceptionRule.expectMessage("Sorry, that book is not available.");
+        biblioteca.checkOutBook("Red and Black");
+    }
+
 
     @Test
     public void bookBeReturnedShouldAppearInBookList() {

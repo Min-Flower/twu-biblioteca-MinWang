@@ -1,5 +1,6 @@
 package com.twu.biblioteca.controller;
 
+import com.twu.biblioteca.exceptions.InvalidBookException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BibliotecaService;
 
@@ -38,7 +39,7 @@ public class BibliotecaController {
                     bibliotecaService.handleWrongService();
                     return true;
             }
-        } catch (InvalidOptionException e) {
+        } catch (InvalidOptionException| InvalidBookException e) {
             System.out.println(e.getMessage());
             return true;
         }

@@ -2,6 +2,7 @@ package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.entity.Librarian;
+import com.twu.biblioteca.exceptions.InvalidBookException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.repository.BibliotecaRepository;
 
@@ -41,8 +42,9 @@ public class BibliotecaService {
             bRepo.setLentBookList(librarian.addBook(getBookList(), getLentBookList(), book));
             bRepo.setBookList(librarian.removeBook(getBookList(), book));
             return "Thank you! Enjoy the book.";
+        } else {
+            throw new InvalidBookException("Sorry, that book is not available.");
         }
-        return "Sorry, that book is not available.";
     }
 
     public String returnBook(String book) {
