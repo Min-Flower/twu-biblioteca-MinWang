@@ -46,7 +46,7 @@ public class BibliotecaTests {
             + String.format("%25s %20s %20d", "The Red and the Black", "Stendhal", 1830) + "\n"
             + String.format("%25s %20s %20d", "War and Peace", "Tolstoy", 1869) + "\n"
             + String.format("%25s %20s %20d", "David Copperfield", "Charles Dickens", 1849);
-        assertThat(biblioteca.chooseService("1"), is(existBookList));
+        assertThat(biblioteca.displayBooks(), is(existBookList));
     }
 
     @Rule
@@ -56,12 +56,12 @@ public class BibliotecaTests {
     public void chooseInvalidOptionShouldThrowException() throws InvalidOptionException {
         exceptionRule.expect(InvalidOptionException.class);
         exceptionRule.expectMessage("Please select a valid option!");
-        biblioteca.chooseService("12");
+        biblioteca.handleWrongService();
     }
 
     @Test
     public void chooseQuitOptionShouldExitBiblioteca() {
-        assertNull(biblioteca.chooseService("0"));
+        assertNull(biblioteca.quit());
     }
 
     @Test

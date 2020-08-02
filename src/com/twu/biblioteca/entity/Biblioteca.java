@@ -4,7 +4,6 @@ import com.twu.biblioteca.exceptions.InvalidOptionException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 public class Biblioteca {
 
@@ -41,14 +40,6 @@ public class Biblioteca {
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 
-//    public String checkService() {
-//        Scanner scanner = new Scanner(System.in);
-//        if (checkOutBook(scanner.nextLine())) {
-//            return "Thank you! Enjoy the book";
-//        }
-//        return "Sorry, that book is not available";
-//    }
-
     public String checkOutBook(String book) {
         boolean ifAvailable = librarian.checkOutBook(bookList, book);
         if (ifAvailable) {
@@ -58,14 +49,11 @@ public class Biblioteca {
         return "Sorry, that book is not available";
     }
 
-    public String chooseService(String choice) throws InvalidOptionException {
-        switch (choice) {
-            case "1":
-                return displayBooks();
-            case "0":
-                return null;
-            default:
-                throw new InvalidOptionException("Please select a valid option!");
-        }
+    public String quit() {
+        return null;
+    }
+
+    public void handleWrongService() throws InvalidOptionException {
+        throw new InvalidOptionException("Please select a valid option!");
     }
 }

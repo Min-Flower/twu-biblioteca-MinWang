@@ -25,12 +25,15 @@ public class BibliotecaApp {
             switch (choice) {
                 case "0":
                     return false;
+                case "1":
+                    System.out.println(biblioteca.displayBooks());
+                    return true;
                 case "2":
                     System.out.println("Please enter the book name you want:");
                     System.out.println(biblioteca.checkOutBook(new Scanner(System.in).nextLine()));
                     return true;
                 default:
-                    System.out.println(biblioteca.chooseService(choice));
+                    biblioteca.handleWrongService();
                     return true;
             }
         } catch (InvalidOptionException e) {
