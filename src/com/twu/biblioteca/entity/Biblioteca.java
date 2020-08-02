@@ -8,6 +8,7 @@ import java.util.List;
 public class Biblioteca {
 
     private List<Book> bookList = initBookList();
+    private List<Book> lentBookList = new ArrayList<>();
     private Librarian librarian = new Librarian();
 
     public Biblioteca() {}
@@ -22,7 +23,7 @@ public class Biblioteca {
     }
 
     public String showMenu() {
-        return "====MENU====\n1. List of books\n2. Check out book\n0. Quit\nChoose the service you want:";
+        return "====MENU====\n1. List of books\n2. Check out book\n3. Return book\n0. Quit\nChoose the service you want:";
     }
 
     public List<Book> getBookList() {
@@ -40,15 +41,6 @@ public class Biblioteca {
             .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 
-    public String checkOutBook(String book) {
-        boolean ifAvailable = librarian.checkBookState(bookList, book);
-        if (ifAvailable) {
-            this.bookList = librarian.removeTheCheckOutBook(bookList, book);
-            return "Thank you! Enjoy the book";
-        }
-        return "Sorry, that book is not available";
-    }
-
     public String quit() {
         return null;
     }
@@ -56,4 +48,20 @@ public class Biblioteca {
     public void handleWrongService() throws InvalidOptionException {
         throw new InvalidOptionException("Please select a valid option!");
     }
+
+    public String checkOutBook(String book) {
+        boolean ifAvailable = librarian.checkBookState(bookList, book);
+        if (ifAvailable) {
+            this.lentBookList = librarian.addLentBook(bookList, lentBookList, book);
+            this.bookList = librarian.removeTheCheckOutBook(bookList, book);
+            return "Thank you! Enjoy the book";
+        }
+        return "Sorry, that book is not available";
+    }
+
+    public void returnBook(String book) {
+        this.bookList = librarian.getBackBook(bookList, lentBookList, book);
+        this.lentBookList = librarian.removeTheLentBook(lentBookList, book);
+    }
+
 }

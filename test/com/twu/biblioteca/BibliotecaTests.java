@@ -35,7 +35,7 @@ public class BibliotecaTests {
     @Test
     public void afterWelcomeShouldReturnMenu() {
         assertThat(biblioteca.showMenu(),
-            is("====MENU====\n1. List of books\n2. Check out book\n0. Quit\nChoose the service you want:"));
+            is("====MENU====\n1. List of books\n2. Check out book\n3. Return book\n0. Quit\nChoose the service you want:"));
     }
 
     @Test
@@ -79,5 +79,13 @@ public class BibliotecaTests {
     public void afterCheckedOutMessageShouldBeSent() {
         assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Thank you! Enjoy the book"));
         assertThat(biblioteca.checkOutBook("The Red and the Black"), is("Sorry, that book is not available"));
+    }
+
+    @Test
+    public void bookBeReturnedShouldAppearInBookList() {
+        biblioteca.checkOutBook("War and Peace");
+        assertFalse(librarian.checkBookState(biblioteca.getBookList(), "War and Peace"));
+        biblioteca.returnBook("War and Peace");
+        assertTrue(librarian.checkBookState(biblioteca.getBookList(), "War and Peace"));
     }
 }

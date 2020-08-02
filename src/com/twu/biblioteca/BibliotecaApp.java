@@ -21,6 +21,7 @@ public class BibliotecaApp {
     }
 
     private static boolean isTheCustomerWannaMoveOn(Biblioteca biblioteca, String choice) {
+        Scanner scanner = new Scanner(System.in);
         try {
             switch (choice) {
                 case "0":
@@ -30,7 +31,11 @@ public class BibliotecaApp {
                     return true;
                 case "2":
                     System.out.println("Please enter the book name you want:");
-                    System.out.println(biblioteca.checkOutBook(new Scanner(System.in).nextLine()));
+                    System.out.println(biblioteca.checkOutBook(scanner.nextLine()));
+                    return true;
+                case "3":
+                    System.out.println("Please enter the book name you'll return:");
+                    biblioteca.returnBook(scanner.nextLine());
                     return true;
                 default:
                     biblioteca.handleWrongService();
