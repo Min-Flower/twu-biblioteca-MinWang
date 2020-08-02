@@ -40,9 +40,9 @@ public class BibliotecaService {
         if (ifAvailable) {
             bRepo.setLentBookList(librarian.addBook(getBookList(), getLentBookList(), book));
             bRepo.setBookList(librarian.removeBook(getBookList(), book));
-            return "Thank you! Enjoy the book";
+            return "Thank you! Enjoy the book.";
         }
-        return "Sorry, that book is not available";
+        return "Sorry, that book is not available.";
     }
 
     public String returnBook(String book) {
