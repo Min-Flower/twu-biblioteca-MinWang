@@ -66,7 +66,7 @@ public class Biblioteca {
             this.lentBookList = librarian.removeTheLentBook(lentBookList, book);
             return "Thank you for returning the book!";
         }
-        return "";
+        return "This is not a valid book to return.";
     }
 
 }
