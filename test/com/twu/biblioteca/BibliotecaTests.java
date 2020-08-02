@@ -101,6 +101,12 @@ public class BibliotecaTests {
     public void afterReturnedMessageShouldBeSent() {
         biblioteca.checkOutBook("War and Peace");
         assertThat(biblioteca.returnBook("War and Peace"), is("Thank you for returning the book!"));
-        assertThat(biblioteca.returnBook("The War and Peace"), is("This is not a valid book to return."));
+    }
+
+    @Test
+    public void failToReturnInvalidExceptionShouldBeThrown() {
+        exceptionRule.expect(InvalidBookException.class);
+        exceptionRule.expectMessage("This is not a valid book to return.");
+        biblioteca.returnBook("Red and Black");
     }
 }

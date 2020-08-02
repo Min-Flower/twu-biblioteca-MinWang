@@ -53,8 +53,9 @@ public class BibliotecaService {
             bRepo.setBookList(librarian.addBook(getLentBookList(), getBookList(), book));
             bRepo.setLentBookList(librarian.removeBook(getLentBookList(), book));
             return "Thank you for returning the book!";
+        } else {
+            throw new InvalidBookException("This is not a valid book to return.");
         }
-        return "This is not a valid book to return.";
     }
 
     public String quit() {

@@ -39,7 +39,7 @@ public class BibliotecaController {
                     bibliotecaService.handleWrongService();
                     return true;
             }
-        } catch (InvalidOptionException| InvalidBookException e) {
+        } catch (InvalidOptionException | InvalidBookException e) {
             System.out.println(e.getMessage());
             return true;
         }
