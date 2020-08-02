@@ -52,8 +52,8 @@ public class Biblioteca {
     public String checkOutBook(String book) {
         boolean ifAvailable = librarian.checkBookState(bookList, book);
         if (ifAvailable) {
-            this.lentBookList = librarian.addLentBook(bookList, lentBookList, book);
-            this.bookList = librarian.removeTheCheckOutBook(bookList, book);
+            this.lentBookList = librarian.addBook(bookList, lentBookList, book);
+            this.bookList = librarian.removeBook(bookList, book);
             return "Thank you! Enjoy the book";
         }
         return "Sorry, that book is not available";
@@ -62,8 +62,8 @@ public class Biblioteca {
     public String returnBook(String book) {
         boolean ifLent = librarian.checkBookState(lentBookList, book);
         if (ifLent) {
-            this.bookList = librarian.getBackBook(bookList, lentBookList, book);
-            this.lentBookList = librarian.removeTheLentBook(lentBookList, book);
+            this.bookList = librarian.addBook(lentBookList, bookList, book);
+            this.lentBookList = librarian.removeBook(lentBookList, book);
             return "Thank you for returning the book!";
         }
         return "This is not a valid book to return.";
