@@ -3,6 +3,8 @@ package com.twu.biblioteca.entity;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// 这个类放到Entity不太合适, 一般Entity我们会用Pojo,
+// 这个更像是repository层需要关心的内容, 直接和数据库打交道
 public class Librarian {
 
     public boolean checkBookState(List<Book>bookList, String chosenBook) {
