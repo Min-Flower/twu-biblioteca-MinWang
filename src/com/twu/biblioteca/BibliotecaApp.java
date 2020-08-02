@@ -1,14 +1,13 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.entity.Biblioteca;
-//import com.twu.biblioteca.exceptions.InvalidOptionException;
+import com.twu.biblioteca.controller.BibliotecaController;
 
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        Biblioteca biblioteca = new Biblioteca();
+        BibliotecaController biblioteca = new BibliotecaController();
         Scanner scanner = new Scanner(System.in);
         System.out.println(biblioteca.welcome());
         do {

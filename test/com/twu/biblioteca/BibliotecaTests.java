@@ -1,8 +1,8 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.entity.Biblioteca;
 import com.twu.biblioteca.entity.Librarian;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
+import com.twu.biblioteca.service.BibliotecaService;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
 
@@ -11,12 +11,12 @@ import static org.junit.Assert.*;
 
 public class BibliotecaTests {
 
-    private Biblioteca biblioteca;
+    private BibliotecaService biblioteca;
     private Librarian librarian;
 
     @Before
     public void setUp() {
-        this.biblioteca = new Biblioteca();
+        this.biblioteca = new BibliotecaService();
         this.librarian = new Librarian();
     }
 
