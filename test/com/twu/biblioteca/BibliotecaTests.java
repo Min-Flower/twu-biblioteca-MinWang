@@ -72,9 +72,8 @@ public class BibliotecaTests {
 
     @Test
     public void bookBeCheckedShouldNotAppearInBookList() {
-        biblioteca.checkOutBook("The Red and Black");
-        assertFalse(biblioteca.getBookList().stream()
-            .map(Book::getBookName).anyMatch(book -> book.equals("The Read and Black")));
+        biblioteca.checkOutBook("The Red and the Black");
+        assertFalse(librarian.checkOutBook(biblioteca.getBookList(), "The Red and the Black"));
     }
 
     @Test
