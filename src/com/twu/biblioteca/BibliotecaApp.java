@@ -35,7 +35,7 @@ public class BibliotecaApp {
                     return true;
                 case "3":
                     System.out.println("Please enter the book name you'll return:");
-                    biblioteca.returnBook(scanner.nextLine());
+                    System.out.println(biblioteca.returnBook(scanner.nextLine()));
                     return true;
                 default:
                     biblioteca.handleWrongService();

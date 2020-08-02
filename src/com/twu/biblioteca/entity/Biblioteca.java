@@ -59,9 +59,14 @@ public class Biblioteca {
         return "Sorry, that book is not available";
     }
 
-    public void returnBook(String book) {
-        this.bookList = librarian.getBackBook(bookList, lentBookList, book);
-        this.lentBookList = librarian.removeTheLentBook(lentBookList, book);
+    public String returnBook(String book) {
+        boolean ifLent = librarian.checkBookState(lentBookList, book);
+        if (ifLent) {
+            this.bookList = librarian.getBackBook(bookList, lentBookList, book);
+            this.lentBookList = librarian.removeTheLentBook(lentBookList, book);
+            return "Thank you for returning the book!";
+        }
+        return "";
     }
 
 }

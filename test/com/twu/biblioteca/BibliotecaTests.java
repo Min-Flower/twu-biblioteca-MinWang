@@ -88,4 +88,10 @@ public class BibliotecaTests {
         biblioteca.returnBook("War and Peace");
         assertTrue(librarian.checkBookState(biblioteca.getBookList(), "War and Peace"));
     }
+
+    @Test
+    public void afterReturnedMessageShouldBeSent() {
+        biblioteca.checkOutBook("War and Peace");
+        assertThat(biblioteca.returnBook("War and Peace"), is("Thank you for returning the book!"));
+    }
 }
