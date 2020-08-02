@@ -2,20 +2,24 @@ package com.twu.biblioteca.controller;
 
 import com.twu.biblioteca.exceptions.InvalidBookException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
-import com.twu.biblioteca.service.BibliotecaService;
+import com.twu.biblioteca.service.BookManageService;
 
 import java.util.Scanner;
 
-public class BibliotecaController {
+public class BookManageController {
 
-    private BibliotecaService bibliotecaService = new BibliotecaService();
+    private BookManageService bookManageService = new BookManageService();
 
     public String welcome() {
-        return bibliotecaService.welcome();
+        return bookManageService.welcome();
     }
 
-    public String showMenu() {
-        return bibliotecaService.showMenu();
+    public void showMenu() {
+        String[] menu = {"====MENU====", "1. List of books", "2. Check out book",
+            "3. Return book", "0. Quit", "Choose the service you want:"};
+        for (String item : menu) {
+            System.out.println(item);
+        }
     }
 
     public boolean isTheCustomerWannaMoveOn(String choice) {
@@ -25,18 +29,18 @@ public class BibliotecaController {
                 case "0":
                     return false;
                 case "1":
-                    System.out.println(bibliotecaService.displayBooks());
+                    System.out.println(bookManageService.displayBooks());
                     return true;
                 case "2":
                     System.out.println("Please enter the book name you want:");
-                    System.out.println(bibliotecaService.checkOutBook(scanner.nextLine()));
+                    System.out.println(bookManageService.handleBook("valid", scanner.nextLine()));
                     return true;
                 case "3":
                     System.out.println("Please enter the book name you'll return:");
-                    System.out.println(bibliotecaService.returnBook(scanner.nextLine()));
+                    System.out.println(bookManageService.handleBook("lent", scanner.nextLine()));
                     return true;
                 default:
-                    bibliotecaService.handleWrongService();
+                    bookManageService.handleWrongService();
                     return true;
             }
         } catch (InvalidOptionException | InvalidBookException e) {
