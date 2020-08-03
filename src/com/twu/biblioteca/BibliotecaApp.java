@@ -1,13 +1,13 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.controller.BookManageController;
+import com.twu.biblioteca.controller.ManageController;
 
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
     public static void main(String[] args) {
-        BookManageController biblioteca = new BookManageController();
+        ManageController biblioteca = new ManageController();
         Scanner scanner = new Scanner(System.in);
         System.out.println(biblioteca.welcome());
         do {

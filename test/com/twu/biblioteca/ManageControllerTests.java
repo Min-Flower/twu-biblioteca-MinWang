@@ -1,6 +1,6 @@
 package com.twu.biblioteca;
 
-import com.twu.biblioteca.controller.BookManageController;
+import com.twu.biblioteca.controller.ManageController;
 import org.junit.*;
 
 import java.io.ByteArrayOutputStream;
@@ -9,28 +9,28 @@ import java.io.PrintStream;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 
-public class BookManageControllerTests {
+public class ManageControllerTests {
 
-    private BookManageController bookManageController = new BookManageController();
+    private ManageController manageController = new ManageController();
 
     @Test
     public void customerEnterBibliotecaShouldBeWelcomed() {
         String expectedResult = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-        String actualResult = bookManageController.welcome();
+        String actualResult = manageController.welcome();
 
         assertThat(actualResult, is(expectedResult));
     }
 
     @Test
     public void ifCustomerChooseZeroShouldQuitAndReturnFalse() {
-        boolean expectedResult = bookManageController.isTheCustomerWannaMoveOn("0");
+        boolean expectedResult = manageController.isTheCustomerWannaMoveOn("0");
 
         assertFalse(expectedResult);
     }
 
     @Test
     public void ifCustomerChoose1To3ShouldMoveOnAndReturnTrue() {
-        boolean expectedResult = bookManageController.isTheCustomerWannaMoveOn("1");
+        boolean expectedResult = manageController.isTheCustomerWannaMoveOn("1");
         assertTrue(expectedResult);
     }
 
@@ -52,7 +52,7 @@ public class BookManageControllerTests {
     @Test
     public void ifChooseOtherThan0to3ShouldBeNotified() {
         String expectedResult = "Please select a valid option!\n";
-        bookManageController.isTheCustomerWannaMoveOn("4");
+        manageController.isTheCustomerWannaMoveOn("4");
 
         assertEquals(expectedResult, outContent.toString());
     }
