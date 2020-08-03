@@ -10,7 +10,8 @@ public class MovieManageRepository {
 
     public boolean getMovieByName(String movieName) {
         boolean ifValid  = getValidMovies().stream()
-            .anyMatch(movie -> movie.getState().equals("valid"));
+            .anyMatch(movie -> movie.getMovieName().equals(movieName)
+                && movie.getState().equals("valid"));
         if (ifValid) {
             checkoutMovieByName(movieName);
         }
