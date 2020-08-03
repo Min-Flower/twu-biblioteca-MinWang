@@ -1,5 +1,6 @@
 package com.twu.biblioteca;
 
+import com.twu.biblioteca.data.BookData;
 import com.twu.biblioteca.exceptions.InvalidBookException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
@@ -8,7 +9,6 @@ import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
@@ -25,12 +25,7 @@ public class BookManageServiceTests {
     @After
     public void tearDown() {
         this.bookManageService = null;
-    }
-
-    @Test
-    public void customerEnterBibliotecaShouldBeWelcomed() {
-        String WELCOME_MASSAGE = "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-        assertThat(bookManageService.welcome(), is(WELCOME_MASSAGE));
+        BookData.initDB();
     }
 
     @Test
@@ -41,7 +36,11 @@ public class BookManageServiceTests {
             .forEach(book -> existBookList.add(String.format(
                 "%25s %20s %20s", book.getBookName(), book.getAuthor(), book.getYearOfPublication()))
             );
-        assertThat(bookManageService.displayBooks(), is(String.join("\n", existBookList)));
+
+        String expectedResult = String.join("\n", existBookList);
+        String actualResult = bookManageService.displayBooks();
+
+        assertThat(actualResult, is(expectedResult));
     }
 
     @Rule
@@ -61,37 +60,47 @@ public class BookManageServiceTests {
 
     @Test
     public void afterCheckedOutSuccessfulMessageShouldBeSent() {
-        assertThat(bookManageService.handleBook("valid","The Red and the Black"), is("Thank you! Enjoy the book."));
+        String expectedResult = "Thank you! Enjoy the book.";
+        String actualResult = bookManageService.handleBook("valid","The Red and the Black");
+
+        assertThat(actualResult, is(expectedResult));
+        assertThat(bookManageService.getValidBooks().size(), is(3));
     }
 
     @Test
     public void failToCheckOutInvalidExceptionShouldBeThrown() {
-        exceptionRule.expect(InvalidBookException.class);
-        exceptionRule.expectMessage("Sorry, that book is not available.");
-        bookManageService.handleBook("valid","Red and Black");
+        try {
+            bookManageService.handleBook("valid", "Red and Black");
+            Assert.fail("Should throw InvalidBookException");
+        } catch (InvalidBookException e) {
+            String expectedResult = "Sorry, that book is not available.";
+            String actualResult = e.getMessage();
+            assertThat(actualResult, is(expectedResult));
+            assertThat(bookManageService.getValidBooks().size(), is(4));
+        }
     }
 
     @Test
     public void bookBeReturnedShouldAppearInBookList() {
         bookManageService.handleBook("valid", "War and Peace");
+
         String expectedResult = "Thank you for returning the book!";
         String actualResult = bookManageService.handleBook("lent","War and Peace");
 
         assertThat(actualResult, is(expectedResult));
-    }
-
-    @Test
-    public void afterReturnedMessageShouldBeSent() {
-        bookManageService.handleBook("valid", "War and Peace");
-
-        assertThat(bookManageService.handleBook("lent", "War and Peace")
-            , is("Thank you for returning the book!"));
+        assertThat(bookManageService.getValidBooks().size(), is(4));
     }
 
     @Test
     public void failToReturnInvalidExceptionShouldBeThrown() {
-        exceptionRule.expect(InvalidBookException.class);
-        exceptionRule.expectMessage("This is not a valid book to return.");
-        bookManageService.handleBook("lent", "Red and Black");
+        try {
+            bookManageService.handleBook("valid", "War and Peace");
+            bookManageService.handleBook("lent", "The Red and the Black");
+
+            Assert.fail("Should throw InvalidBookException");
+        } catch (InvalidBookException e) {
+            assertThat(e.getMessage(), is("This is not a valid book to return."));
+            assertThat(bookManageService.getValidBooks().size(), is(3));
+        }
     }
 }
