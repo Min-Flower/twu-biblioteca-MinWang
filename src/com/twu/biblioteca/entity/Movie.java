@@ -6,6 +6,7 @@ public class Movie {
     private String releaseYear;
     private String director;
     private int rating;
+    private String state = "valid";
 
     public Movie() {
     }
@@ -47,5 +48,13 @@ public class Movie {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }

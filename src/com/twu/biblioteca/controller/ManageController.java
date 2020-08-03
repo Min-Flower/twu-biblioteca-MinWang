@@ -1,6 +1,6 @@
 package com.twu.biblioteca.controller;
 
-import com.twu.biblioteca.exceptions.InvalidBookException;
+import com.twu.biblioteca.exceptions.InvalidProductException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
 import com.twu.biblioteca.service.MovieManageService;
@@ -18,7 +18,7 @@ public class ManageController {
 
     public void showMenu() {
         String[] menu = {"====MENU====", "1. List of books", "2. Check out book",
-            "3. Return book", "4. List of Movies", "0. Quit", "Choose the service you want:"};
+            "3. Return book", "4. List of Movies", "5. Check out ", "0. Quit", "Choose the service you want:"};
         for (String item : menu) {
             System.out.println(item);
         }
@@ -44,11 +44,15 @@ public class ManageController {
                 case "4":
                     System.out.println(movieManageService.displayMovies());
                     return true;
+                case "5":
+                    System.out.println("Please enter the movie name you want:");
+                    System.out.println(movieManageService.checkoutMovie(scanner.nextLine()));
+                    return true;
                 default:
                     bookManageService.handleWrongService();
                     return true;
             }
-        } catch (InvalidOptionException | InvalidBookException e) {
+        } catch (InvalidOptionException | InvalidProductException e) {
             System.out.println(e.getMessage());
             return true;
         }

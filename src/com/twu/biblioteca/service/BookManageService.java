@@ -1,7 +1,7 @@
 package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.Book;
-import com.twu.biblioteca.exceptions.InvalidBookException;
+import com.twu.biblioteca.exceptions.InvalidProductException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.repository.BookManageRepository;
 
@@ -33,7 +33,7 @@ public class BookManageService {
             bRepo.removeBookByBookName(bookType, book);
             return bookType.equals("valid") ? "Thank you! Enjoy the book." : "Thank you for returning the book!";
         } else {
-            throw new InvalidBookException(bookType.equals("valid") ?
+            throw new InvalidProductException(bookType.equals("valid") ?
                 "Sorry, that book is not available." : "This is not a valid book to return.");
         }
     }

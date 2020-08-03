@@ -1,7 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.data.BookData;
-import com.twu.biblioteca.exceptions.InvalidBookException;
+import com.twu.biblioteca.exceptions.InvalidProductException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
 import org.junit.*;
@@ -71,8 +71,8 @@ public class BookManageServiceTests {
     public void failToCheckOutInvalidExceptionShouldBeThrown() {
         try {
             bookManageService.handleBook("valid", "Red and Black");
-            Assert.fail("Should throw InvalidBookException");
-        } catch (InvalidBookException e) {
+            Assert.fail("Should throw InvalidProductException");
+        } catch (InvalidProductException e) {
             String expectedResult = "Sorry, that book is not available.";
             String actualResult = e.getMessage();
             assertThat(actualResult, is(expectedResult));
@@ -97,8 +97,8 @@ public class BookManageServiceTests {
             bookManageService.handleBook("valid", "War and Peace");
             bookManageService.handleBook("lent", "The Red and the Black");
 
-            Assert.fail("Should throw InvalidBookException");
-        } catch (InvalidBookException e) {
+            Assert.fail("Should throw InvalidProductException");
+        } catch (InvalidProductException e) {
             assertThat(e.getMessage(), is("This is not a valid book to return."));
             assertThat(bookManageService.getValidBooks().size(), is(3));
         }

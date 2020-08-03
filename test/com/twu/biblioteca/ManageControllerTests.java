@@ -29,7 +29,7 @@ public class ManageControllerTests {
     }
 
     @Test
-    public void ifCustomerChoose1To3ShouldMoveOnAndReturnTrue() {
+    public void ifCustomerChoose1To5ShouldMoveOnAndReturnTrue() {
         boolean expectedResult = manageController.isTheCustomerWannaMoveOn("1");
         assertTrue(expectedResult);
     }
