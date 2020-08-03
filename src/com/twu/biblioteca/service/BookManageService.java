@@ -27,10 +27,7 @@ public class BookManageService {
     }
 
     public String handleBook(String bookType, String book) {
-        String saveType = bookType.equals("valid") ? "lent" : "valid";
-        if (bRepo.getBookByBookNameFromList(bookType, book) != null) {
-            bRepo.saveBookByBookName(saveType, book);
-            bRepo.removeBookByBookName(bookType, book);
+        if (bRepo.getBookByBookName(bookType, book)) {
             return bookType.equals("valid") ? "Thank you! Enjoy the book." : "Thank you for returning the book!";
         } else {
             throw new InvalidProductException(bookType.equals("valid") ?

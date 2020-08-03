@@ -5,6 +5,7 @@ public class Book {
     private String bookName;
     private String author;
     private int yearOfPublication;
+    private String state = "valid";
 
     public Book() {}
 
@@ -36,5 +37,13 @@ public class Book {
 
     public void setYearOfPublication(int yearOfPublication) {
         this.yearOfPublication = yearOfPublication;
+    }
+
+    public String getState() {
+        return state;
+    }
+
+    public void setState(String state) {
+        this.state = state;
     }
 }
