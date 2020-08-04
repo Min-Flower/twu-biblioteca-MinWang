@@ -16,10 +16,11 @@ public class BookManageRepository {
             .collect(Collectors.toList());
     }
 
-    public boolean getBookByBookName(String userId, String bookState, String name) {
+    public boolean handleBook(String userId, String bookState, String name) {
         boolean isValid = BookData.bookList.stream()
             .anyMatch(book -> book.getBookName().equals(name)
-                && book.getState().equals(bookState));
+                && book.getState().equals(bookState)
+                && (book.getState().equals("valid") || book.getUserId().equals(userId)));
         if (isValid) {
             changeStateByBookName(userId, name);
         }

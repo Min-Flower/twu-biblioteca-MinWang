@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.ManageController;
+import com.twu.biblioteca.data.UserData;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -64,6 +65,26 @@ public class ManageControllerTests {
 
         String expectedResult = "1. The Red and the Black, User: 1\n2. War and Peace, User: 2\n";
         String actualResult = manageController.checkBorrowingRecord();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
+    public void loginAsCustomerShouldBeVerified() {
+        String username = UserData.userList.get(0).getName();
+        String password = UserData.userList.get(0).getPassword();
+
+        assertNotNull(manageController.getUserInfo(username, password));
+        assertNull(manageController.getUserInfo(username, password + "."));
+    }
+
+    @Test
+    public void afterLoginCustomerShouldBeAbleToSeeHisInfoExceptPassword() {
+        String username = "Min";
+        String password = "123456";
+
+        String expectedResult = "{id: 1, name: Min, email: min@xxx.com, phone: 8866209}";
+        String actualResult = manageController.getUserInfo(username, password).toString();
 
         assertEquals(expectedResult, actualResult);
     }

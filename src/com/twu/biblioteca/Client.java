@@ -13,22 +13,24 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
 
     public void startService() {
-        System.out.println("Choose Your Identity:");
         System.out.println("1. Librarian");
         System.out.println("2. Customer");
+        System.out.println("0. Quit");
+        System.out.println("Choose Your Identity:");
         login(scanner.nextLine());
     }
 
     private void login(String identity) {
-        System.out.println("==============================");
         System.out.println(manageController.welcome());
         switch (identity) {
             case "1":
                 librarianService();
                 break;
             case "2":
-               userService();
-               break;
+                userService();
+                break;
+            case "0":
+                break;
             default:
                 try {
                     throw new InvalidOptionException("Please check the given identity!");
@@ -44,6 +46,7 @@ public class Client {
             System.out.println("1. checkBorrowingRecord");
             System.out.println("0. quit");
         } while (isTheLibrarianWannaQuit(scanner.nextLine()));
+        startService();
     }
 
     private boolean isTheLibrarianWannaQuit(String choice) {
@@ -72,15 +75,17 @@ public class Client {
         System.out.println("Please input your username and password");
         System.out.print("Username: ");
         String username = scanner.nextLine();
-        System.out.println("Password:");
+        System.out.print("Password: ");
         String password = scanner.nextLine();
         User userInfo = manageController.getUserInfo(username, password);
         if((userInfo != null)) {
             do {
+                System.out.println("---------------------");
                 System.out.println("Here is Your Personal Information: " + userInfo.toString());
                 manageController.showMenu();
             } while (isTheCustomerWannaMoveOn(userInfo, scanner.nextLine()));
         }
+        startService();
     }
 
     private boolean isTheCustomerWannaMoveOn(User user, String choice) {

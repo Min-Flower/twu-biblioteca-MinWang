@@ -22,7 +22,7 @@ public class BookManageService {
     }
 
     public String handleBook(String userId, String bookType, String book) {
-        if (bRepo.getBookByBookName(userId, bookType, book)) {
+        if (bRepo.handleBook(userId, bookType, book)) {
             return bookType.equals("valid") ? "Thank you! Enjoy the book." : "Thank you for returning the book!";
         } else {
             throw new InvalidProductException(bookType.equals("valid") ?
