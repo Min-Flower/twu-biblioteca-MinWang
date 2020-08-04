@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.ManageController;
 import com.twu.biblioteca.data.UserData;
+import com.twu.biblioteca.exceptions.FailToVerifyException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import org.junit.*;
 import org.junit.rules.ExpectedException;
@@ -51,7 +52,7 @@ public class ManageControllerTests {
 
     @Test
     public void userFromClientShouldBeShownTheMenu() {
-        String expectResult = "====MENU====\n1. List of books\n2. Check out book\n3. Return book\n4. List of Movies\n" +
+        String expectResult = "====MENU====\n1. List of books\n2. Check out book\n3. Return book\n4. List of movies\n" +
             "5. Check out movie\n0. Quit\nChoose the service you want:\n";
         manageController.showMenu();
 
@@ -70,12 +71,31 @@ public class ManageControllerTests {
     }
 
     @Test
+    public void noRecordAboutBorrowingShouldBeNoticedToLibrarian() {
+        String expectedResult = "No record now.";
+        String actualResult = manageController.checkBorrowingRecord();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
+    @Test
     public void loginAsCustomerShouldBeVerified() {
         String username = UserData.userList.get(0).getName();
         String password = UserData.userList.get(0).getPassword();
 
         assertNotNull(manageController.getUserInfo(username, password));
-        assertNull(manageController.getUserInfo(username, password + "."));
+
+        try {
+            manageController.getUserInfo(username, password + ".");
+
+            Assert.fail("Should throw FailToVerifyException");
+
+        } catch (FailToVerifyException e) {
+            String expectedResult = "Please enter the right username and password!";
+            String actualResult = e.getMessage();
+
+            assertThat(actualResult, is(expectedResult));
+        }
     }
 
     @Test

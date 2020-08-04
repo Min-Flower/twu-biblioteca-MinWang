@@ -2,6 +2,7 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.ManageController;
 import com.twu.biblioteca.entity.User;
+import com.twu.biblioteca.exceptions.FailToVerifyException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.exceptions.InvalidProductException;
 
@@ -13,6 +14,7 @@ public class Client {
     private Scanner scanner = new Scanner(System.in);
 
     public void startService() {
+        System.out.println("====HOME====");
         System.out.println("1. Librarian");
         System.out.println("2. Customer");
         System.out.println("0. Quit");
@@ -43,8 +45,8 @@ public class Client {
     private void librarianService() {
         do {
             System.out.println("=====Menu=====");
-            System.out.println("1. checkBorrowingRecord");
-            System.out.println("0. quit");
+            System.out.println("1. Check borrowing-record");
+            System.out.println("0. Quit");
         } while (isTheLibrarianWannaQuit(scanner.nextLine()));
         startService();
     }
@@ -77,15 +79,20 @@ public class Client {
         String username = scanner.nextLine();
         System.out.print("Password: ");
         String password = scanner.nextLine();
-        User userInfo = manageController.getUserInfo(username, password);
-        if((userInfo != null)) {
-            do {
-                System.out.println("---------------------");
-                System.out.println("Here is Your Personal Information: " + userInfo.toString());
-                manageController.showMenu();
-            } while (isTheCustomerWannaMoveOn(userInfo, scanner.nextLine()));
+        try {
+            User userInfo = manageController.getUserInfo(username, password);
+            if((userInfo != null)) {
+                do {
+                    System.out.println("---------------------");
+                    System.out.println("Here is Your Personal Information: " + userInfo.toString());
+                    manageController.showMenu();
+                } while (isTheCustomerWannaMoveOn(userInfo, scanner.nextLine()));
+            }
+        } catch (FailToVerifyException e) {
+            System.out.println(e.getMessage());
+        } finally {
+            startService();
         }
-        startService();
     }
 
     private boolean isTheCustomerWannaMoveOn(User user, String choice) {

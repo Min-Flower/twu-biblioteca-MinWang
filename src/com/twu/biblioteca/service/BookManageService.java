@@ -36,6 +36,6 @@ public class BookManageService {
         for (int i = 0; i < bookList.size(); i++) {
             record.append(i + 1).append(". ").append(bookList.get(i).getBookName()).append(", User: ").append(bookList.get(i).getUserId()).append("\n");
         }
-        return record.toString();
+        return record.toString().equals("") ? "No record now." : record.toString();
     }
 }

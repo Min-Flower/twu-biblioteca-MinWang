@@ -1,6 +1,7 @@
 package com.twu.biblioteca.controller;
 
 import com.twu.biblioteca.entity.User;
+import com.twu.biblioteca.exceptions.FailToVerifyException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
 import com.twu.biblioteca.service.MovieManageService;
@@ -18,7 +19,7 @@ public class ManageController {
 
     public void showMenu() {
         String[] menu = {"====MENU====", "1. List of books", "2. Check out book",
-            "3. Return book", "4. List of Movies", "5. Check out movie", "0. Quit", "Choose the service you want:"};
+            "3. Return book", "4. List of movies", "5. Check out movie", "0. Quit", "Choose the service you want:"};
         for (String item : menu) {
             System.out.println(item);
         }
@@ -57,6 +58,10 @@ public class ManageController {
     }
 
     public User getUserInfo(String username, String password) {
-        return userManageService.getUserInfo(username, password);
+        User user = userManageService.getUserInfo(username, password);
+        if (user == null) {
+            throw new FailToVerifyException("Please enter the right username and password!");
+        }
+        return user;
     }
 }
