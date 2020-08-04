@@ -2,10 +2,8 @@ package com.twu.biblioteca;
 
 import com.twu.biblioteca.data.BookData;
 import com.twu.biblioteca.exceptions.InvalidProductException;
-import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
 import org.junit.*;
-import org.junit.rules.ExpectedException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,21 +39,6 @@ public class BookManageServiceTests {
         String actualResult = bookManageService.displayBooks();
 
         assertThat(actualResult, is(expectedResult));
-    }
-
-    @Rule
-    public ExpectedException exceptionRule = ExpectedException.none();
-
-    @Test
-    public void chooseInvalidOptionShouldThrowException() throws InvalidOptionException {
-        exceptionRule.expect(InvalidOptionException.class);
-        exceptionRule.expectMessage("Please select a valid option!");
-        bookManageService.handleWrongService();
-    }
-
-    @Test
-    public void chooseQuitOptionShouldExitBiblioteca() {
-        assertNull(bookManageService.quit());
     }
 
     @Test

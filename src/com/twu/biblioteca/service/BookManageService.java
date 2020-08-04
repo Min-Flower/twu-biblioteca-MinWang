@@ -15,10 +15,6 @@ public class BookManageService {
         return bRepo.getValidBooks();
     }
 
-    public String welcome() {
-        return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
-    }
-
     public String displayBooks() {
         return String.format("%25s %20s %20s\n", "Book Name", "Author", "Published Year") +
             getValidBooks().stream().map(book ->
@@ -34,13 +30,4 @@ public class BookManageService {
                 "Sorry, that book is not available." : "This is not a valid book to return.");
         }
     }
-
-    public String quit() {
-        return null;
-    }
-
-    public void handleWrongService() throws InvalidOptionException {
-        throw new InvalidOptionException("Please select a valid option!");
-    }
-
 }

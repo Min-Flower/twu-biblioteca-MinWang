@@ -1,7 +1,9 @@
 package com.twu.biblioteca;
 
 import com.twu.biblioteca.controller.ManageController;
+import com.twu.biblioteca.exceptions.InvalidOptionException;
 import org.junit.*;
+import org.junit.rules.ExpectedException;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -21,17 +23,14 @@ public class ManageControllerTests {
         assertThat(actualResult, is(expectedResult));
     }
 
-    @Test
-    public void ifCustomerChooseZeroShouldQuitAndReturnFalse() {
-        boolean expectedResult = manageController.isTheCustomerWannaMoveOn("0");
-
-        assertFalse(expectedResult);
-    }
+    @Rule
+    public ExpectedException exceptionRule = ExpectedException.none();
 
     @Test
-    public void ifCustomerChoose1To5ShouldMoveOnAndReturnTrue() {
-        boolean expectedResult = manageController.isTheCustomerWannaMoveOn("1");
-        assertTrue(expectedResult);
+    public void chooseInvalidOptionShouldThrowException() throws InvalidOptionException {
+        exceptionRule.expect(InvalidOptionException.class);
+        exceptionRule.expectMessage("Please select a valid option!");
+        manageController.handleWrongService();
     }
 
     private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
@@ -50,11 +49,12 @@ public class ManageControllerTests {
     }
 
     @Test
-    public void ifChooseOtherThan0to3ShouldBeNotified() {
-        String expectedResult = "Please select a valid option!\n";
-        manageController.isTheCustomerWannaMoveOn("4");
+    public void userFromClientShouldBeShownTheMenu() {
+        String expectResult = "====MENU====\n1. List of books\n2. Check out book\n3. Return book\n4. List of Movies\n" +
+            "5. Check out movie\n0. Quit\nChoose the service you want:\n";
+        manageController.showMenu();
 
-        assertEquals(expectedResult, outContent.toString());
+        assertEquals(expectResult, outContent.toString());
     }
 
 }

@@ -1,11 +1,8 @@
 package com.twu.biblioteca.controller;
 
-import com.twu.biblioteca.exceptions.InvalidProductException;
 import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.service.BookManageService;
 import com.twu.biblioteca.service.MovieManageService;
-
-import java.util.Scanner;
 
 public class ManageController {
 
@@ -13,48 +10,43 @@ public class ManageController {
     private MovieManageService movieManageService = new MovieManageService();
 
     public String welcome() {
-        return bookManageService.welcome();
+        return "Welcome to Biblioteca. Your one-stop-shop for great book titles in Bangalore!";
     }
 
     public void showMenu() {
         String[] menu = {"====MENU====", "1. List of books", "2. Check out book",
-            "3. Return book", "4. List of Movies", "5. Check out ", "0. Quit", "Choose the service you want:"};
+            "3. Return book", "4. List of Movies", "5. Check out movie", "0. Quit", "Choose the service you want:"};
         for (String item : menu) {
             System.out.println(item);
         }
     }
 
-    public boolean isTheCustomerWannaMoveOn(String choice) {
-        Scanner scanner = new Scanner(System.in);
-        try {
-            switch (choice) {
-                case "0":
-                    return false;
-                case "1":
-                    System.out.println(bookManageService.displayBooks());
-                    return true;
-                case "2":
-                    System.out.println("Please enter the book name you want:");
-                    System.out.println(bookManageService.handleBook("valid", scanner.nextLine()));
-                    return true;
-                case "3":
-                    System.out.println("Please enter the book name you'll return:");
-                    System.out.println(bookManageService.handleBook("lent", scanner.nextLine()));
-                    return true;
-                case "4":
-                    System.out.println(movieManageService.displayMovies());
-                    return true;
-                case "5":
-                    System.out.println("Please enter the movie name you want:");
-                    System.out.println(movieManageService.checkoutMovie(scanner.nextLine()));
-                    return true;
-                default:
-                    bookManageService.handleWrongService();
-                    return true;
-            }
-        } catch (InvalidOptionException | InvalidProductException e) {
-            System.out.println(e.getMessage());
-            return true;
-        }
+    public String displayBooks() {
+        return bookManageService.displayBooks();
     }
+
+    public String checkOutBook(String bookName) {
+        return bookManageService.handleBook("valid", bookName);
+    }
+
+    public String returnBook(String bookName) {
+        return bookManageService.handleBook("lent", bookName);
+    }
+
+    public String displayMovies() {
+        return movieManageService.displayMovies();
+    }
+
+    public String checkoutMovie(String movieName) {
+        return movieManageService.checkoutMovie(movieName);
+    }
+
+    public void handleWrongService() throws InvalidOptionException {
+        throw new InvalidOptionException("Please select a valid option!");
+    }
+
+    public boolean quit() {
+        return false;
+    }
+
 }
