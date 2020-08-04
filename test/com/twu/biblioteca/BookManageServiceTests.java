@@ -44,7 +44,7 @@ public class BookManageServiceTests {
     @Test
     public void afterCheckedOutSuccessfulMessageShouldBeSent() {
         String expectedResult = "Thank you! Enjoy the book.";
-        String actualResult = bookManageService.handleBook("valid","The Red and the Black");
+        String actualResult = bookManageService.handleBook("1", "valid","The Red and the Black");
 
         assertThat(actualResult, is(expectedResult));
         assertThat(bookManageService.getValidBooks().size(), is(3));
@@ -53,7 +53,7 @@ public class BookManageServiceTests {
     @Test
     public void failToCheckOutInvalidExceptionShouldBeThrown() {
         try {
-            bookManageService.handleBook("valid", "Red and Black");
+            bookManageService.handleBook("1","valid", "Red and Black");
             Assert.fail("Should throw InvalidProductException");
         } catch (InvalidProductException e) {
             String expectedResult = "Sorry, that book is not available.";
@@ -65,10 +65,10 @@ public class BookManageServiceTests {
 
     @Test
     public void bookBeReturnedShouldAppearInBookList() {
-        bookManageService.handleBook("valid", "War and Peace");
+        bookManageService.handleBook("1", "valid", "War and Peace");
 
         String expectedResult = "Thank you for returning the book!";
-        String actualResult = bookManageService.handleBook("lent","War and Peace");
+        String actualResult = bookManageService.handleBook("1", "lent","War and Peace");
 
         assertThat(actualResult, is(expectedResult));
         assertThat(bookManageService.getValidBooks().size(), is(4));
@@ -77,8 +77,8 @@ public class BookManageServiceTests {
     @Test
     public void failToReturnInvalidExceptionShouldBeThrown() {
         try {
-            bookManageService.handleBook("valid", "War and Peace");
-            bookManageService.handleBook("lent", "The Red and the Black");
+            bookManageService.handleBook("1", "valid", "War and Peace");
+            bookManageService.handleBook("1", "lent", "The Red and the Black");
 
             Assert.fail("Should throw InvalidProductException");
         } catch (InvalidProductException e) {

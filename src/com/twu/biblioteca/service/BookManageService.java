@@ -2,7 +2,6 @@ package com.twu.biblioteca.service;
 
 import com.twu.biblioteca.entity.Book;
 import com.twu.biblioteca.exceptions.InvalidProductException;
-import com.twu.biblioteca.exceptions.InvalidOptionException;
 import com.twu.biblioteca.repository.BookManageRepository;
 
 import java.util.List;
@@ -12,7 +11,7 @@ public class BookManageService {
     BookManageRepository bRepo = new BookManageRepository();
 
     public List<Book> getValidBooks() {
-        return bRepo.getValidBooks();
+        return bRepo.getBooksByType("valid");
     }
 
     public String displayBooks() {
@@ -22,12 +21,21 @@ public class BookManageService {
                 .reduce((pre, cur) -> pre + "\n" + cur).orElse(null);
     }
 
-    public String handleBook(String bookType, String book) {
-        if (bRepo.getBookByBookName(bookType, book)) {
+    public String handleBook(String userId, String bookType, String book) {
+        if (bRepo.getBookByBookName(userId, bookType, book)) {
             return bookType.equals("valid") ? "Thank you! Enjoy the book." : "Thank you for returning the book!";
         } else {
             throw new InvalidProductException(bookType.equals("valid") ?
                 "Sorry, that book is not available." : "This is not a valid book to return.");
         }
+    }
+
+    public String checkBorrowingRecord() {
+        StringBuilder record = new StringBuilder();
+        List<Book> bookList = bRepo.getBooksByType("lent");
+        for (int i = 0; i < bookList.size(); i++) {
+            record.append(i + 1).append(". ").append(bookList.get(i).getBookName()).append(", User: ").append(bookList.get(i).getUserId()).append("\n");
+        }
+        return record.toString();
     }
 }

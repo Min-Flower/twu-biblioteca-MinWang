@@ -5,6 +5,7 @@ public class Book {
     private String bookName;
     private String author;
     private int yearOfPublication;
+    private String userId = null;
     private String state = "valid";
 
     public Book() {}
@@ -45,5 +46,13 @@ public class Book {
 
     public void setState(String state) {
         this.state = state;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 }

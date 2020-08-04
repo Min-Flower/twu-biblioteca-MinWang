@@ -57,4 +57,15 @@ public class ManageControllerTests {
         assertEquals(expectResult, outContent.toString());
     }
 
+    @Test
+    public void loginAsLibrarianShouldBeAbleToCheckBorrowingRecord() {
+        manageController.checkOutBook("1", "The Red and the Black");
+        manageController.checkOutBook("2", "War and Peace");
+
+        String expectedResult = "1. The Red and the Black, User: 1\n2. War and Peace, User: 2\n";
+        String actualResult = manageController.checkBorrowingRecord();
+
+        assertEquals(expectedResult, actualResult);
+    }
+
 }
