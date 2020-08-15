@@ -23,12 +23,13 @@ public class Client {
     }
 
     private void login(String identity) {
-        System.out.println(manageController.welcome());
         switch (identity) {
             case "1":
+                System.out.println(manageController.welcome());
                 librarianService();
                 break;
             case "2":
+                System.out.println(manageController.welcome());
                 userService();
                 break;
             case "0":
